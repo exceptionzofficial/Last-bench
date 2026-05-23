@@ -10,5 +10,13 @@ export default defineConfig({
         secure: false,
       }
     }
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: './index.html',
+        jobs: './jobs.html'
+      }
+    }
   }
 });
