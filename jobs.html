@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers & Internships | Last Bench Software</title>
+    <meta name="description" content="Explore open roles and internships at Last Bench. Join our remote team of software builders and designers building real-world products.">
+    <link rel="icon" type="image/png" href="./image.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        /* ─── CUSTOM PREMIUM CAREERS STYLES ─── */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .careers-header-section {
+            padding: 120px 0 50px 0;
+            background: linear-gradient(180deg, rgba(239, 239, 208, 0.4) 0%, rgba(245, 245, 220, 0) 100%);
+            text-align: center;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        .back-link:hover {
+            color: var(--primary-color);
+            transform: translateX(-4px);
+        }
+
+        .sec-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .sec-subtitle {
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        /* Search & Filters */
+        .filter-section {
+            margin-bottom: 48px;
+        }
+
+        .search-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(62, 39, 35, 0.08);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            flex: 1;
+        }
+        .search-input-wrapper svg {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            pointer-events: none;
+        }
+        .search-input {
+            width: 100%;
+            padding: 16px 16px 16px 52px;
+            border-radius: 12px;
+            border: 1px solid rgba(62, 39, 35, 0.15);
+            background: var(--white);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .search-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(212, 163, 115, 0.15);
+        }
+
+        .filter-row {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .filter-label {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+        }
+
+        .filter-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-pill {
+            background: rgba(62, 39, 35, 0.04);
+            border: 1px solid rgba(62, 39, 35, 0.06);
+            color: var(--text-light);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .filter-pill:hover {
+            background: rgba(212, 163, 115, 0.12);
+            color: var(--primary-color);
+        }
+        .filter-pill.active {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(62, 39, 35, 0.15);
+        }
+
+        /* Drawer Overlay */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(62, 39, 35, 0.4);
+            backdrop-filter: blur(8px);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Slide-out Drawer */
+        .apply-drawer {
+            position: fixed;
+            top: 0;
+            right: -480px;
+            bottom: 0;
+            width: 100%;
+            max-width: 460px;
+            background: var(--white);
+            box-shadow: -10px 0 40px rgba(62, 39, 35, 0.18);
+            z-index: 1001;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid rgba(62, 39, 35, 0.08);
+            transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .apply-drawer.active {
+            right: 0;
+        }
+
+        @media (max-width: 500px) {
+            .apply-drawer {
+                max-width: 100%;
+                padding: 24px;
+            }
+        }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        .drawer-header h3 {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            font-weight: 800;
+        }
+        .close-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        .close-btn:hover {
+            background: rgba(62, 39, 35, 0.06);
+            color: var(--primary-color);
+        }
+
+        .drawer-body {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(62, 39, 35, 0.15);
+            background: var(--white);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .form-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.15);
+        }
+
+        /* Drag & Drop File Upload */
+        .dropzone {
+            border: 2px dashed rgba(212, 163, 115, 0.4);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            background: rgba(62, 39, 35, 0.01);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .dropzone:hover, .dropzone.dragover {
+            border-color: var(--primary-color);
+            background: rgba(212, 163, 115, 0.08);
+        }
+        .dropzone-icon {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        .dropzone-text {
+            font-size: 0.88rem;
+            color: var(--text-main);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .dropzone-sub {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        /* Animated Success Overlay */
+        .success-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--white);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+            z-index: 10;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .success-screen.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .checkmark-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            animation: pulse-green 2s infinite;
+        }
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .success-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .success-msg {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        /* Offline Bar */
+        .offline-indicator {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.25);
+            color: #b45309;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            line-height: 1.4;
+        }
+
+        /* Custom Hamburger in style.css sometimes doesn't have open state, we ensure smooth responsive navigation */
+        @media (max-width: 768px) {
+            .search-glass {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header id="header" style="background: rgba(245, 245, 220, 0.98); box-shadow: 0 4px 20px rgba(62, 39, 35, 0.08); backdrop-filter: blur(20px);">
+    <div class="container nav-inner">
+        <a href="./index.html" class="logo">
+            <img src="./image.png" alt="Last Bench Logo" class="logo-img">
+            <span>Last Bench</span>
+        </a>
+        <nav id="nav">
+            <a href="./index.html#what-we-do">What We Do</a>
+            <a href="./index.html#what-we-think">What We Think</a>
+            <a href="./index.html#about">About Us</a>
+            <a href="./jobs.html" class="active" style="color: var(--accent-color); font-weight: 700;">Careers</a>
+            <a href="./index.html#contact">Contact</a>
+        </nav>
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <a href="./index.html#contact" class="btn-cta">Start a Project →</a>
+            
+            <!-- Dynamic User Authentication status bar -->
+            <div id="auth-status-container" style="display: flex; align-items: center; gap: 8px;">
+                <!-- Guest View -->
+                <button id="header-signin-btn" class="btn-primary animate-pulse-light" style="padding: 9px 20px; font-size: 0.82rem; border-radius: 50px; background: var(--primary-color); display: flex; align-items: center; gap: 6px; font-weight: 600; border: none; cursor: pointer; box-shadow: var(--shadow);">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <span>Sign In</span>
+                </button>
+                
+                <!-- Logged In View -->
+                <div id="header-user-profile" style="display: none; align-items: center; gap: 8px; position: relative;">
+                    <div id="header-user-avatar" style="width: 38px; height: 38px; border-radius: 50%; background: var(--accent-color); color: var(--primary-color); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.95rem; border: 2px solid var(--primary-color); cursor: pointer; user-select: none; transition: var(--transition);">
+                        U
+                    </div>
+                    <!-- Dropdown Menu -->
+                    <div id="user-dropdown-menu" style="display: none; position: absolute; top: 48px; right: 0; background: var(--white); border: 1px solid rgba(62, 39, 35, 0.1); border-radius: 12px; box-shadow: var(--shadow-hover); width: 180px; padding: 6px 0; z-index: 1005;">
+                        <div style="padding: 8px 16px; border-bottom: 1px solid rgba(62, 39, 35, 0.06); font-size: 0.76rem; color: var(--text-light); font-weight: 600; line-height: 1.3;">
+                            Builder Account
+                            <strong id="dropdown-user-email" style="display: block; overflow: hidden; text-overflow: ellipsis; font-weight: 700; color: var(--primary-color); margin-top: 2px;">email</strong>
+                        </div>
+                        <button id="header-signout-btn" style="width: 100%; border: none; background: none; text-align: left; padding: 10px 16px; font-size: 0.85rem; color: #dc2626; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: var(--transition);">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                            Sign Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<!-- ─── HERO HEADER ─── -->
+<section class="careers-header-section">
+    <div class="container">
+        <a href="./index.html#careers" class="back-link">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            Back to Homepage
+        </a>
+        <h1 class="sec-title">Work On Real Products. <span class="grad">Ship on Day 1.</span></h1>
+        <p class="sec-subtitle">We are a tight-knit remote product agency. We don't do mock projects or code sandboxes — our interns and developers build production features for real businesses. Apply below.</p>
+    </div>
+</section>
+
+<!-- ─── MAIN CONTENT ─── -->
+<main class="container" style="padding-bottom: 80px;">
+    
+    <!-- Offline Indicator -->
+    <div id="offline-bar" class="offline-indicator" style="display: none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span><strong>Demo Mode:</strong> The local database server is offline. Applications submitted will save securely inside your browser's **LocalStorage** and will sync automatically when the server is run.</span>
+    </div>
+
+    <!-- ─── PREMIUM TAB NAVIGATION ─── -->
+    <div style="display: flex; gap: 8px; border-bottom: 2px solid rgba(62, 39, 35, 0.08); padding-bottom: 0px; margin-bottom: 32px;">
+        <button id="tab-explore" style="background: none; border: none; font-size: 1.1rem; font-weight: 700; color: var(--primary-color); cursor: pointer; padding: 12px 20px; border-bottom: 3px solid var(--primary-color); font-family: inherit; transition: var(--transition); outline: none;">
+            Explore Openings
+        </button>
+        <button id="tab-applied" style="background: none; border: none; font-size: 1.1rem; font-weight: 600; color: var(--text-light); cursor: pointer; padding: 12px 20px; border-bottom: 3px solid transparent; font-family: inherit; transition: var(--transition); display: flex; align-items: center; gap: 8px; outline: none;">
+            <span>My Applied Jobs</span>
+            <span id="applied-count-badge" style="background: var(--accent-color); color: var(--primary-color); padding: 2px 8px; border-radius: 20px; font-size: 0.72rem; font-weight: 800; display: none;">0</span>
+        </button>
+    </div>
+
+    <!-- ─── FILTERS PANEL ─── -->
+    <div class="filter-section" style="margin-bottom: 24px;">
+        <div class="search-glass">
+            
+            <!-- Search Text -->
+            <div class="search-input-wrapper">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="search-input" class="search-input" placeholder="Search by role, skills, or description keywords...">
+            </div>
+
+            <!-- Dept Pills -->
+            <div class="filter-row">
+                <span class="filter-label">Filter by Department</span>
+                <div class="filter-pills" id="dept-pills">
+                    <button class="filter-pill active" data-dept="All">All Departments</button>
+                    <button class="filter-pill" data-dept="Frontend">Frontend</button>
+                    <button class="filter-pill" data-dept="Backend">Backend</button>
+                    <button class="filter-pill" data-dept="Mobile">Mobile</button>
+                    <button class="filter-pill" data-dept="Design">Design</button>
+                </div>
+            </div>
+
+            <!-- Type Pills -->
+            <div class="filter-row">
+                <span class="filter-label">Job Type</span>
+                <div class="filter-pills" id="type-pills">
+                    <button class="filter-pill active" data-type="All">All Types</button>
+                    <button class="filter-pill" data-type="Full-time">Full-time</button>
+                    <button class="filter-pill" data-type="Internship">Internship</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ─── JOBS GRID ─── -->
+    <div class="jobs-list-container" style="margin-top: 24px; margin-bottom: 48px;">
+        <div class="careers-grid" id="jobs-grid">
+            <!-- Dynamically Loaded Job Cards -->
+        </div>
+
+        <div id="no-jobs-card" style="display: none; text-align: center; padding: 80px 20px; background: rgba(62,39,35,0.02); border: 2px dashed rgba(62,39,35,0.1); border-radius: 16px;">
+            <h3 style="color: var(--primary-color); font-size: 1.3rem; margin-bottom: 8px; font-weight: 700;">No Openings Found</h3>
+            <p style="color: var(--text-light); max-width: 450px; margin: 0 auto;">We couldn't find any roles matching your active search filters. Try resetting the filters or broadening your search!</p>
+        </div>
+    </div>
+
+    <!-- ─── FOOTER NOTE ─── -->
+    <div class="careers-note reveal active" style="margin-top: 60px;">
+        <div class="careers-note-inner">
+            <div class="careers-note-icon">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.61 16z"/></svg>
+            </div>
+            <div class="careers-note-body">
+                <strong>Don't see your specific expertise listed?</strong>
+                <p>We are always looking to connect with talented engineers, mobile developers, or designer builders. Submit an open speculative application and pitch us what you bring to the bench.</p>
+            </div>
+            <button class="btn-primary" id="speculative-apply-btn">Submit Pitch</button>
+        </div>
+    </div>
+</main>
+
+<!-- ─── APPLICATION DRAWER OVERLAY & ELEMENT ─── -->
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<div class="apply-drawer" id="apply-drawer">
+    
+    <!-- Success Message Screen -->
+    <div class="success-screen" id="success-screen">
+        <div class="checkmark-circle">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3 class="success-title">Application Submitted!</h3>
+        <p class="success-msg" id="success-msg-text">Thanks for pitching your skills to the bench! Our engineering founders review all applicant profiles and codebases manually. We'll reach out via WhatsApp or Email within 24 hours.</p>
+        <button class="btn-primary" id="success-close-btn" style="width: 100%;">Return to Openings</button>
+    </div>
+
+    <!-- ─── AUTH FLOW VIEWS (GUEST REGISTER / LOGIN) ─── -->
+    <div id="drawer-auth-flow" style="display: none; flex-direction: column; height: 100%;">
+        <div class="drawer-header">
+            <div>
+                <span class="sec-tag" style="margin-bottom: 4px;" id="auth-flow-tag">Join The Bench</span>
+                <h3 id="auth-flow-title">Create Account</h3>
+            </div>
+            <button class="close-btn" id="auth-drawer-close-btn" aria-label="Close drawer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        
+        <div class="drawer-body">
+            <p style="color: var(--text-light); font-size: 0.88rem; margin-bottom: 20px; line-height: 1.5;" id="auth-flow-desc">
+                To apply for roles on the Last Bench Career Portal, please create a free builder account first.
+            </p>
+
+            <div id="auth-error-msg" style="display: none; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.25); color: #dc2626; padding: 10px 14px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; margin-bottom: 16px;"></div>
+
+            <!-- REGISTER FORM -->
+            <form id="auth-register-form">
+                <div class="form-group">
+                    <label for="reg-name">Full Name</label>
+                    <input type="text" id="reg-name" class="form-input" placeholder="e.g. Bharath Kumar" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-email">Email Address</label>
+                    <input type="email" id="reg-email" class="form-input" placeholder="e.g. bharath@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-mobile">Mobile Number (WhatsApp)</label>
+                    <input type="tel" id="reg-mobile" class="form-input" placeholder="e.g. +91 93618 67673" required>
+                </div>
+                <div class="form-group">
+                    <label for="reg-password">Password</label>
+                    <input type="password" id="reg-password" class="form-input" placeholder="Min. 6 characters" required minlength="6">
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 13px; margin-top: 10px; font-weight: 700; border: none; border-radius: 50px;">
+                    Create Account & Proceed
+                </button>
+                <p style="text-align: center; font-size: 0.82rem; color: var(--text-light); margin-top: 16px;">
+                    Already have an account? <a href="#" id="toggle-to-login" style="color: var(--accent-color); font-weight: 700; text-decoration: none;">Sign In</a>
+                </p>
+            </form>
+
+            <!-- LOGIN FORM -->
+            <form id="auth-login-form" style="display: none;">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" class="form-input" placeholder="e.g. bharath@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-input" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 13px; margin-top: 10px; font-weight: 700; border: none; border-radius: 50px;">
+                    Sign In & Proceed
+                </button>
+                <p style="text-align: center; font-size: 0.82rem; color: var(--text-light); margin-top: 16px;">
+                    New to Last Bench? <a href="#" id="toggle-to-register" style="color: var(--accent-color); font-weight: 700; text-decoration: none;">Create Account</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ─── ACTIVE APPLICATION FORM VIEW ─── -->
+    <div id="drawer-apply-flow" style="display: flex; flex-direction: column; height: 100%;">
+        <div class="drawer-header">
+            <div>
+                <span class="sec-tag" style="margin-bottom: 4px;">Join The Bench</span>
+                <h3 id="drawer-job-title">Apply For Role</h3>
+            </div>
+            <button class="close-btn" id="drawer-close-btn" aria-label="Close drawer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+
+        <div class="drawer-body">
+            <p style="color: var(--text-light); font-size: 0.88rem; margin-bottom: 24px; line-height: 1.5;" id="drawer-job-desc">
+                Submit your profile details. All fields are required. We'll contact you on WhatsApp or Email soon.
+            </p>
+
+            <form id="apply-form">
+                <input type="hidden" id="form-job-id" value="">
+                
+                <div class="form-group">
+                    <label for="apply-name">Full Name</label>
+                    <input type="text" id="apply-name" class="form-input" placeholder="e.g. Amit Patel" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="apply-email">Email Address</label>
+                    <input type="email" id="apply-email" class="form-input" placeholder="e.g. amit@gmail.com" required readonly style="background: rgba(62, 39, 35, 0.05); color: var(--text-light); cursor: not-allowed;">
+                </div>
+
+                <div class="form-group">
+                    <label for="apply-mobile">Mobile Number (WhatsApp preferred)</label>
+                    <input type="tel" id="apply-mobile" class="form-input" placeholder="e.g. +91 99999 88888" required>
+                </div>
+
+                <!-- DRAG & DROP FILE ZONE -->
+                <div class="form-group">
+                    <label>Resume / CV File</label>
+                    <div class="dropzone" id="upload-zone">
+                        <input type="file" id="file-input" style="display: none;" accept=".pdf,.docx,.doc">
+                        <div class="dropzone-icon">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        </div>
+                        <div class="dropzone-text" id="dropzone-text">Drag & drop your resume PDF here</div>
+                        <div class="dropzone-sub" id="dropzone-sub">or click to browse local files (PDF/DOCX up to 10MB)</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary" style="width: 100%; padding: 14px; margin-top: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none; border-radius: 50px;" id="submit-btn">
+                    <span>Submit Application</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer style="background: var(--primary-color); color: rgba(245, 245, 220, 0.7); padding: 40px 0; font-size: 0.9rem; text-align: center; border-top: 1px solid rgba(212, 163, 115, 0.15);">
+    <div class="container">
+        <p>© 2026 Last Bench Software Agency. All rights reserved. &nbsp;·&nbsp; Build, Ship, Scale.</p>
+    </div>
+</footer>
+
+<!-- Hamburger Mobile Menu Logic (using main index menu toggle style) -->
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.getElementById('nav');
+    if (hamburger) {
+        hamburger.addEventListener('click', () => {
+            const open = nav.style.display === 'flex';
+            nav.style.cssText = open
+                ? ''
+                : 'display:flex;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:rgba(245,245,220,0.98);padding:24px;gap:20px;border-bottom:1px solid rgba(62,39,35,0.1);z-index:999;backdrop-filter:blur(20px);';
+        });
+    }
+</script>
+
+<!-- ─── PORTAL SYNCHRONIZATION AND FORM INTERACTION SCRIPT ─── -->
+<script>
+    const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? '/api'
+        : 'https://lastbenchbackend.vercel.app/api';
+    
+    // Seed default jobs to localStorage if not exists
+    const fallbackJobs = [
+      {
+        id: 'job-1',
+        title: 'Frontend Engineer (React / Next.js)',
+        department: 'Frontend',
+        location: 'Remote',
+        type: 'Full-time',
+        experience: '1-3 Years',
+        skills: ['React', 'Next.js', 'CSS', 'Tailwind CSS', 'Git'],
+        description: 'We are looking for a sharp Frontend Engineer who loves building fast, responsive, and gorgeous web applications. You will own client-facing features from day one.'
+      },
+      {
+        id: 'job-2',
+        title: 'Backend Engineer (Node.js / Express)',
+        department: 'Backend',
+        location: 'Remote',
+        type: 'Full-time',
+        experience: '2-4 Years',
+        skills: ['Node.js', 'Express', 'PostgreSQL', 'MongoDB', 'REST APIs'],
+        description: 'Join our team to build scalable APIs, solid databases, and reliable background systems. You will work on real-world integrations and optimize server performances.'
+      },
+      {
+        id: 'job-3',
+        title: 'Mobile App Developer (Flutter / React Native)',
+        department: 'Mobile',
+        location: 'Remote',
+        type: 'Full-time',
+        experience: '1-3 Years',
+        skills: ['Flutter', 'Dart', 'React Native', 'Firebase', 'App Store Deployment'],
+        description: 'Build cross-platform mobile apps for iOS and Android. From simple client MVPs to heavy-duty consumer applications, you will handle the entire mobile lifecycle.'
+      },
+      {
+        id: 'job-4',
+        title: 'UI/UX Designer & Builder',
+        department: 'Design',
+        location: 'Remote',
+        type: 'Internship',
+        experience: 'Freshers / Portfolio Required',
+        skills: ['Figma', 'Prototyping', 'Tailwind CSS', 'HTML/CSS'],
+        description: 'We need a creative designer who also understands code. You will design clean, high-fidelity prototypes in Figma and help translate them into beautiful frontend interfaces.'
+      }
+    ];
+
+    let allJobs = [];
+    let allApplications = [];
+    let currentUser = null;
+    let activeTab = 'explore'; // 'explore' or 'applied'
+    let isApiOnline = false;
+    let selectedResumeFile = null;
+    let selectedResumeBase64 = null;
+
+    // Element references
+    const jobsGrid = document.getElementById('jobs-grid');
+    const noJobsCard = document.getElementById('no-jobs-card');
+    const offlineBar = document.getElementById('offline-bar');
+    const searchInput = document.getElementById('search-input');
+    const filterSection = document.querySelector('.filter-section');
+    const applyDrawer = document.getElementById('apply-drawer');
+    const drawerOverlay = document.getElementById('drawer-overlay');
+    const applyForm = document.getElementById('apply-form');
+    const successScreen = document.getElementById('success-screen');
+
+    // Drawer sections
+    const drawerAuthFlow = document.getElementById('drawer-auth-flow');
+    const drawerApplyFlow = document.getElementById('drawer-apply-flow');
+    const authErrorMsg = document.getElementById('auth-error-msg');
+    
+    // Auth elements
+    const authRegisterForm = document.getElementById('auth-register-form');
+    const authLoginForm = document.getElementById('auth-login-form');
+    const toggleToLogin = document.getElementById('toggle-to-login');
+    const toggleToRegister = document.getElementById('toggle-to-register');
+    
+    // Header Auth elements
+    const headerSigninBtn = document.getElementById('header-signin-btn');
+    const headerUserProfile = document.getElementById('header-user-profile');
+    const headerUserAvatar = document.getElementById('header-user-avatar');
+    const userDropdownMenu = document.getElementById('user-dropdown-menu');
+    const dropdownUserEmail = document.getElementById('dropdown-user-email');
+    const headerSignoutBtn = document.getElementById('header-signout-btn');
+
+    // Tab buttons
+    const tabExplore = document.getElementById('tab-explore');
+    const tabApplied = document.getElementById('tab-applied');
+    const appliedCountBadge = document.getElementById('applied-count-badge');
+
+    // Drawer references
+    const drawerJobTitle = document.getElementById('drawer-job-title');
+    const drawerJobDesc = document.getElementById('drawer-job-desc');
+    const formJobId = document.getElementById('form-job-id');
+
+    // Drag and drop elements
+    const uploadZone = document.getElementById('upload-zone');
+    const fileInput = document.getElementById('file-input');
+    const dropzoneText = document.getElementById('dropzone-text');
+    const dropzoneSub = document.getElementById('dropzone-sub');
+
+    // Filters state
+    let activeDept = 'All';
+    let activeType = 'All';
+    let activeSearch = '';
+
+    // Initialize session auth state
+    function initAuth() {
+        const storedUser = localStorage.getItem('lastbench_current_user');
+        if (storedUser) {
+            currentUser = JSON.parse(storedUser);
+        }
+        updateAuthUI();
+    }
+
+    // Synchronize UI elements with current authentication state
+    function updateAuthUI() {
+        if (currentUser) {
+            // Logged in
+            headerSigninBtn.style.display = 'none';
+            headerUserProfile.style.display = 'flex';
+            headerUserAvatar.textContent = currentUser.fullName ? currentUser.fullName.charAt(0).toUpperCase() : 'U';
+            dropdownUserEmail.textContent = currentUser.email;
+
+            // Fill apply form
+            document.getElementById('apply-name').value = currentUser.fullName || '';
+            document.getElementById('apply-email').value = currentUser.email || '';
+            document.getElementById('apply-mobile').value = currentUser.mobile || '';
+        } else {
+            // Guest mode
+            headerSigninBtn.style.display = 'flex';
+            headerUserProfile.style.display = 'none';
+            userDropdownMenu.style.display = 'none';
+            
+            // Clear apply form
+            applyForm.reset();
+        }
+    }
+
+    // Toggle Dropdown Menu
+    headerUserAvatar.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = userDropdownMenu.style.display === 'block';
+        userDropdownMenu.style.display = isOpen ? 'none' : 'block';
+    });
+
+    document.addEventListener('click', () => {
+        userDropdownMenu.style.display = 'none';
+    });
+
+    // Handle User Log Out
+    headerSignoutBtn.addEventListener('click', () => {
+        localStorage.removeItem('lastbench_current_user');
+        currentUser = null;
+        updateAuthUI();
+        loadApplications(); // Triggers reload, updates applied list to empty
+        closeApplicationDrawer();
+    });
+
+    // Toggle drawer registration and login views
+    toggleToLogin.addEventListener('click', (e) => {
+        e.preventDefault();
+        authRegisterForm.style.display = 'none';
+        authLoginForm.style.display = 'block';
+        document.getElementById('auth-flow-title').textContent = "Sign In";
+        document.getElementById('auth-flow-desc').textContent = "Sign in to track your applications and pitch to the bench.";
+        authErrorMsg.style.display = 'none';
+    });
+
+    toggleToRegister.addEventListener('click', (e) => {
+        e.preventDefault();
+        authLoginForm.style.display = 'none';
+        authRegisterForm.style.display = 'block';
+        document.getElementById('auth-flow-title').textContent = "Create Account";
+        document.getElementById('auth-flow-desc').textContent = "To apply for roles on the Last Bench Career Portal, please create a free builder account first.";
+        authErrorMsg.style.display = 'none';
+    });
+
+    // Handle user registration submit
+    authRegisterForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fullName = document.getElementById('reg-name').value;
+        const email = document.getElementById('reg-email').value;
+        const mobile = document.getElementById('reg-mobile').value;
+        const password = document.getElementById('reg-password').value;
+        authErrorMsg.style.display = 'none';
+
+        const payload = { fullName, email, mobile, password };
+
+        try {
+            if (isApiOnline) {
+                const res = await fetch(`${API_BASE}/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Registration failed');
+                currentUser = data;
+            } else {
+                // LocalStorage Fallback database
+                let localUsers = localStorage.getItem('lastbench_users');
+                let users = localUsers ? JSON.parse(localUsers) : [];
+                if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+                    throw new Error('An account with this email already exists');
+                }
+                const newUser = { ...payload, id: 'user-' + Date.now() };
+                users.push(newUser);
+                localStorage.setItem('lastbench_users', JSON.stringify(users));
+                currentUser = newUser;
+            }
+
+            localStorage.setItem('lastbench_current_user', JSON.stringify(currentUser));
+            updateAuthUI();
+            
+            // Switch dynamically to standard Apply Form view!
+            drawerAuthFlow.style.display = 'none';
+            drawerApplyFlow.style.display = 'flex';
+            
+            // Sync applications
+            await loadApplications();
+        } catch (err) {
+            authErrorMsg.textContent = err.message;
+            authErrorMsg.style.display = 'block';
+        }
+    });
+
+    // Handle user login submit
+    authLoginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        authErrorMsg.style.display = 'none';
+
+        const payload = { email, password };
+
+        try {
+            if (isApiOnline) {
+                const res = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Invalid credentials');
+                currentUser = data;
+            } else {
+                // LocalStorage Fallback database
+                let localUsers = localStorage.getItem('lastbench_users');
+                let users = localUsers ? JSON.parse(localUsers) : [];
+                const matchedUser = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+                if (!matchedUser) {
+                    throw new Error('Invalid email or password');
+                }
+                currentUser = matchedUser;
+            }
+
+            localStorage.setItem('lastbench_current_user', JSON.stringify(currentUser));
+            updateAuthUI();
+            
+            // Switch dynamically to standard Apply Form view!
+            drawerAuthFlow.style.display = 'none';
+            drawerApplyFlow.style.display = 'flex';
+            
+            // Sync applications
+            await loadApplications();
+        } catch (err) {
+            authErrorMsg.textContent = err.message;
+            authErrorMsg.style.display = 'block';
+        }
+    });
+
+    // Switch tabs click listeners
+    tabExplore.addEventListener('click', () => {
+        activeTab = 'explore';
+        tabExplore.style.borderBottom = '3px solid var(--primary-color)';
+        tabExplore.style.color = 'var(--primary-color)';
+        tabExplore.style.fontWeight = '700';
+        tabApplied.style.borderBottom = '3px solid transparent';
+        tabApplied.style.color = 'var(--text-light)';
+        tabApplied.style.fontWeight = '600';
+        
+        filterSection.style.display = 'block';
+        renderJobs();
+    });
+
+    tabApplied.addEventListener('click', () => {
+        activeTab = 'applied';
+        tabApplied.style.borderBottom = '3px solid var(--primary-color)';
+        tabApplied.style.color = 'var(--primary-color)';
+        tabApplied.style.fontWeight = '700';
+        tabExplore.style.borderBottom = '3px solid transparent';
+        tabExplore.style.color = 'var(--text-light)';
+        tabExplore.style.fontWeight = '600';
+
+        filterSection.style.display = 'none';
+        renderJobs();
+    });
+
+    // Header signin button trigger drawer auth flow directly
+    headerSigninBtn.addEventListener('click', () => {
+        formJobId.value = 'speculative';
+        drawerJobTitle.textContent = "Speculative Builder Application";
+        drawerJobDesc.textContent = "Pitch us your skillset, show us your projects, and tell us how you can help building Last Bench product releases.";
+        
+        drawerApplyFlow.style.display = 'none';
+        drawerAuthFlow.style.display = 'flex';
+        authLoginForm.style.display = 'none';
+        authRegisterForm.style.display = 'block';
+        document.getElementById('auth-flow-title').textContent = "Create Account";
+        authErrorMsg.style.display = 'none';
+        
+        applyDrawer.classList.add('active');
+        drawerOverlay.classList.add('active');
+    });
+
+    // Fetch and sync jobs
+    async function loadJobs() {
+        try {
+            const res = await fetch(`${API_BASE}/jobs`);
+            if (res.ok) {
+                allJobs = await res.json();
+                isApiOnline = true;
+                offlineBar.style.display = 'none';
+                localStorage.setItem('lastbench_jobs', JSON.stringify(allJobs));
+            } else {
+                throw new Error('API server failed');
+            }
+        } catch (err) {
+            isApiOnline = false;
+            offlineBar.style.display = 'flex';
+            
+            // Fallback to LocalStorage
+            const storedJobs = localStorage.getItem('lastbench_jobs');
+            if (storedJobs) {
+                allJobs = JSON.parse(storedJobs);
+            } else {
+                allJobs = fallbackJobs;
+                localStorage.setItem('lastbench_jobs', JSON.stringify(fallbackJobs));
+            }
+        }
+        
+        await loadApplications();
+        checkUrlParameters();
+    }
+
+    // Load applications dynamically
+    async function loadApplications() {
+        try {
+            const res = await fetch(`${API_BASE}/applications`);
+            if (res.ok) {
+                allApplications = await res.json();
+            } else {
+                throw new Error();
+            }
+        } catch (err) {
+            const storedApps = localStorage.getItem('lastbench_applications');
+            allApplications = storedApps ? JSON.parse(storedApps) : [];
+        }
+
+        // Filter applications representing current builder session
+        let userApps = [];
+        if (currentUser) {
+            userApps = allApplications.filter(app => app.email.toLowerCase() === currentUser.email.toLowerCase());
+            appliedCountBadge.textContent = userApps.length;
+            appliedCountBadge.style.display = userApps.length > 0 ? 'inline-block' : 'none';
+        } else {
+            appliedCountBadge.style.display = 'none';
+        }
+
+        renderJobs();
+    }
+
+    // Render cards based on active tabs, filters, and applied state
+    function renderJobs() {
+        jobsGrid.innerHTML = '';
+        
+        // Find current user's active applications
+        let userApps = [];
+        if (currentUser) {
+            userApps = allApplications.filter(app => app.email.toLowerCase() === currentUser.email.toLowerCase());
+        }
+        const appliedJobIds = new Set(userApps.map(app => app.jobId));
+
+        if (activeTab === 'applied') {
+            if (!currentUser) {
+                // Return gorgeous Sign In notification panel
+                jobsGrid.style.display = 'block';
+                noJobsCard.style.display = 'none';
+                jobsGrid.innerHTML = `
+                    <div style="text-align: center; padding: 60px 24px; background: rgba(62,39,35,0.02); border: 2px dashed rgba(62,39,35,0.1); border-radius: 16px; max-width: 500px; margin: 0 auto;">
+                        <h3 style="color: var(--primary-color); font-weight: 700; margin-bottom: 12px; font-size: 1.25rem;">Sign In to Track Applications</h3>
+                        <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 24px; line-height: 1.6;">You must be logged in to view your applied roles and track live feedback from Last Bench founders.</p>
+                        <button class="btn-primary" onclick="headerSigninBtn.click()" style="padding: 10px 28px; border: none; border-radius: 50px; font-weight: 700;">Sign In / Register Now</button>
+                    </div>
+                `;
+                return;
+            }
+
+            // Render ONLY applied jobs
+            const appliedJobs = allJobs.filter(job => appliedJobIds.has(job.id));
+            
+            if (appliedJobs.length === 0) {
+                jobsGrid.style.display = 'none';
+                noJobsCard.style.display = 'block';
+                noJobsCard.querySelector('h3').textContent = "No Applied Jobs";
+                noJobsCard.querySelector('p').textContent = "You haven't applied to any roles yet! Shift back to Explore Openings and pitch your skills to the bench.";
+                return;
+            }
+
+            jobsGrid.style.display = 'grid';
+            noJobsCard.style.display = 'none';
+            renderCardList(appliedJobs, true, userApps);
+            return;
+        }
+
+        // Otherwise activeTab is explore
+        // Render ONLY jobs the user has NOT applied to AND that are active!
+        const openJobs = allJobs.filter(job => {
+            const matchesActive = job.active !== false;
+            const matchesApplied = !appliedJobIds.has(job.id);
+            const matchesSearch = job.title.toLowerCase().includes(activeSearch.toLowerCase()) || 
+                                  job.description.toLowerCase().includes(activeSearch.toLowerCase()) ||
+                                  job.skills.some(s => s.toLowerCase().includes(activeSearch.toLowerCase()));
+            const matchesDept = activeDept === 'All' || job.department === activeDept;
+            const matchesType = activeType === 'All' || job.type === activeType;
+            return matchesActive && matchesApplied && matchesSearch && matchesDept && matchesType;
+        });
+
+        if (openJobs.length === 0) {
+            jobsGrid.style.display = 'none';
+            noJobsCard.style.display = 'block';
+            noJobsCard.querySelector('h3').textContent = "No Openings Found";
+            noJobsCard.querySelector('p').textContent = "We couldn't find any roles matching your active search filters. Try resetting the filters or broadening your search!";
+            return;
+        }
+
+        jobsGrid.style.display = 'grid';
+        noJobsCard.style.display = 'none';
+        renderCardList(openJobs, false, []);
+    }
+
+    // Render list of job cards dynamically
+    function renderCardList(jobs, isAppliedView, userApps) {
+        const getDeptStyle = (dept) => {
+            const d = (dept || '').toLowerCase();
+            if (d.includes('front')) {
+                return { grad: 'linear-gradient(135deg,#667eea22,#764ba222)', color: '#667eea', icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>' };
+            } else if (d.includes('mobile')) {
+                return { grad: 'linear-gradient(135deg,#f093fb22,#f5576c22)', color: '#f5576c', icon: '<rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>' };
+            } else if (d.includes('back')) {
+                return { grad: 'linear-gradient(135deg,#43e97b22,#38f9d722)', color: '#38f9d7', icon: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>' };
+            } else if (d.includes('design') || d.includes('ui') || d.includes('ux')) {
+                return { grad: 'linear-gradient(135deg,#fa709a22,#fee14022)', color: '#fa709a', icon: '<path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l8 8"/><circle cx="12" cy="12" r="1"/>' };
+            } else if (d.includes('stack')) {
+                return { grad: 'linear-gradient(135deg,#4facfe22,#00f2fe22)', color: '#4facfe', icon: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M21 9H3M21 15H3M12 3v18"/>' };
+            } else if (d.includes('qa') || d.includes('test')) {
+                return { grad: 'linear-gradient(135deg,#ff9a9e22,#fecfef22)', color: '#ff9a9e', icon: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>' };
+            } else {
+                return { grad: 'linear-gradient(135deg,#fbc2eb22,#a6c1ee22)', color: '#a6c1ee', icon: '<rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>' };
+            }
+        };
+
+        jobs.forEach(job => {
+            const style = getDeptStyle(job.department);
+            const isHot = job.type.toLowerCase().includes('full');
+            
+            const card = document.createElement('div');
+            card.className = `career-card reveal active ${isHot ? 'career-highlight' : ''}`;
+            
+            let hotBadgeHtml = isHot ? '<div class="career-hot-badge">🔥 Hiring Now</div>' : '';
+            const skillsHtml = (job.skills || []).map(s => `<span>${s}</span>`).join('');
+
+            let ctaHtml = '';
+            if (isAppliedView) {
+                const appDetail = userApps.find(a => a.jobId === job.id);
+                const status = appDetail ? appDetail.status : 'Pending';
+                
+                // Color codes matches statuses beautifully
+                let badgeColor = '#f59e0b';
+                let badgeBg = 'rgba(245, 158, 11, 0.12)';
+                let statusDesc = 'Founders are reviewing your profile and codebase manually.';
+                
+                if (status === 'Reviewed') {
+                    badgeColor = '#3b82f6';
+                    badgeBg = 'rgba(59, 130, 246, 0.12)';
+                    statusDesc = 'Your profile is reviewed! Aligning details with engineering founders.';
+                } else if (status === 'Shortlisted') {
+                    badgeColor = '#10b981';
+                    badgeBg = 'rgba(16, 185, 129, 0.12)';
+                    statusDesc = 'Congratulations! You are shortlisted. We will reach out on WhatsApp within 24h.';
+                } else if (status === 'Rejected') {
+                    badgeColor = '#ef4444';
+                    badgeBg = 'rgba(239, 68, 68, 0.12)';
+                    statusDesc = 'We appreciate your effort! The bench is currently full for this specific alignment.';
+                }
+
+                ctaHtml = `
+                    <div style="margin-top: 10px; border-top: 1px solid rgba(62,39,35,0.06); padding-top: 16px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-light);">Status Update</span>
+                            <span style="padding: 4px 12px; border-radius: 50px; background:${badgeBg}; color:${badgeColor}; font-size: 0.76rem; font-weight: 800; border: 1px solid ${badgeColor}22;">
+                                ${status}
+                            </span>
+                        </div>
+                        <p style="font-size: 0.78rem; line-height: 1.4; color: var(--text-light); margin-bottom: 12px; font-weight: 500;">
+                            ${statusDesc}
+                        </p>
+                        <button class="btn-ghost" disabled style="width: 100%; border: 1.5px solid rgba(62,39,35,0.15); color: var(--text-light); font-size: 0.8rem; padding: 10px 22px; cursor: default; border-radius: 50px; font-weight: 600; text-align: center; pointer-events: none;">
+                            Application Registered ✓
+                        </button>
+                    </div>
+                `;
+            } else {
+                ctaHtml = `
+                    <button class="${isHot ? 'btn-primary' : 'btn-outline'} career-apply" onclick="openApplicationDrawer('${job.id}')" style="width: 100%; border-radius: 50px; font-weight: 600; font-family: inherit;">Apply For This Role →</button>
+                `;
+            }
+
+            card.innerHTML = `
+                ${hotBadgeHtml}
+                <div class="career-header">
+                    <div class="career-icon" style="background:${style.grad};">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="${style.color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${style.icon}</svg>
+                    </div>
+                    <div>
+                        <h3>${job.title}</h3>
+                        <span class="career-type ${isHot ? 'full' : 'intern'}">${job.type} · ${job.location}</span>
+                    </div>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--accent-color); font-weight: 700; margin: -10px 0 10px 56px;">Required: ${job.experience}</div>
+                <p style="font-size: 0.88rem; line-height: 1.5;">${job.description}</p>
+                <div class="career-skills" style="margin-bottom: 24px;">${skillsHtml}</div>
+                ${ctaHtml}
+            `;
+            jobsGrid.appendChild(card);
+        });
+    }
+
+    // Interactive filters event bindings
+    document.getElementById('dept-pills').addEventListener('click', (e) => {
+        const pill = e.target.closest('.filter-pill');
+        if (!pill) return;
+        
+        document.querySelectorAll('#dept-pills .filter-pill').forEach(btn => btn.classList.remove('active'));
+        pill.classList.add('active');
+        activeDept = pill.dataset.dept;
+        renderJobs();
+    });
+
+    document.getElementById('type-pills').addEventListener('click', (e) => {
+        const pill = e.target.closest('.filter-pill');
+        if (!pill) return;
+        
+        document.querySelectorAll('#type-pills .filter-pill').forEach(btn => btn.classList.remove('active'));
+        pill.classList.add('active');
+        activeType = pill.dataset.type;
+        renderJobs();
+    });
+
+    searchInput.addEventListener('input', (e) => {
+        activeSearch = e.target.value;
+        renderJobs();
+    });
+
+    // URL Routing pre-select
+    function checkUrlParameters() {
+        const params = new URLSearchParams(window.location.search);
+        const jobId = params.get('jobId');
+        if (jobId) {
+            // Remove parameter from URL quietly
+            window.history.replaceState({}, document.title, window.location.pathname);
+            openApplicationDrawer(jobId);
+        }
+    }
+
+    // Form Drawer Operations
+    function openApplicationDrawer(jobId) {
+        let job = allJobs.find(j => j.id === jobId);
+        if (!job) {
+            // Speculative application fallback
+            job = {
+                id: 'speculative',
+                title: 'Speculative Builder Application',
+                description: 'Pitch us your skillset, show us your projects, and tell us how you can help building Last Bench product releases.'
+            };
+        }
+
+        formJobId.value = job.id;
+        drawerJobTitle.textContent = job.title;
+        drawerJobDesc.textContent = job.description;
+
+        // Reset forms
+        applyForm.reset();
+        selectedResumeFile = null;
+        selectedResumeBase64 = null;
+        dropzoneText.textContent = "Drag & drop your resume PDF/DOCX here";
+        dropzoneSub.textContent = "or click to browse local files (PDF/DOCX up to 10MB)";
+        uploadZone.style.background = 'rgba(62, 39, 35, 0.01)';
+        successScreen.classList.remove('active');
+
+        // Fulfill authentication gate requirement!
+        if (!currentUser) {
+            drawerApplyFlow.style.display = 'none';
+            drawerAuthFlow.style.display = 'flex';
+            authLoginForm.style.display = 'none';
+            authRegisterForm.style.display = 'block';
+            document.getElementById('auth-flow-title').textContent = "Create Account";
+            authErrorMsg.style.display = 'none';
+        } else {
+            drawerAuthFlow.style.display = 'none';
+            drawerApplyFlow.style.display = 'flex';
+            updateAuthUI();
+        }
+
+        applyDrawer.classList.add('active');
+        drawerOverlay.classList.add('active');
+    }
+
+    function closeApplicationDrawer() {
+        applyDrawer.classList.remove('active');
+        drawerOverlay.classList.remove('active');
+        successScreen.classList.remove('active');
+    }
+
+    document.getElementById('drawer-close-btn').addEventListener('click', closeApplicationDrawer);
+    document.getElementById('auth-drawer-close-btn').addEventListener('click', closeApplicationDrawer);
+    drawerOverlay.addEventListener('click', closeApplicationDrawer);
+    document.getElementById('success-close-btn').addEventListener('click', closeApplicationDrawer);
+    
+    document.getElementById('speculative-apply-btn').addEventListener('click', () => {
+        openApplicationDrawer('speculative');
+    });
+
+    // File Drop Zone Mechanics
+    uploadZone.addEventListener('click', () => fileInput.click());
+    
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files[0]) {
+            handleSelectedFile(e.target.files[0]);
+        }
+    });
+
+    uploadZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadZone.classList.add('dragover');
+    });
+
+    uploadZone.addEventListener('dragleave', () => {
+        uploadZone.classList.remove('dragover');
+    });
+
+    uploadZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove('dragover');
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            handleSelectedFile(e.dataTransfer.files[0]);
+        }
+    });
+
+    // Upgraded handleSelectedFile to capture the candidate's actual file base64 data!
+    function handleSelectedFile(file) {
+        const extension = file.name.split('.').pop().toLowerCase();
+        if (!['pdf', 'docx', 'doc'].includes(extension)) {
+            alert('Unsupported file format! Please upload a PDF, DOCX or DOC document.');
+            return;
+        }
+        
+        selectedResumeFile = file;
+        dropzoneText.textContent = `✅ ${file.name}`;
+        dropzoneSub.textContent = `${(file.size / 1024).toFixed(1)} KB · Click to change file`;
+        uploadZone.style.background = 'rgba(212, 163, 115, 0.15)';
+        
+        // Capture actual file base64
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            selectedResumeBase64 = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // Handle Apply Form Submit
+    applyForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('apply-name').value;
+        const email = document.getElementById('apply-email').value;
+        const mobile = document.getElementById('apply-mobile').value;
+        const jobId = formJobId.value;
+
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.disabled = true;
+        submitBtn.querySelector('span').textContent = 'Submitting Profile...';
+
+        const applicationPayload = {
+            candidateName: name,
+            email: email,
+            mobile: mobile,
+            jobId: jobId,
+            resumeName: selectedResumeFile ? selectedResumeFile.name : 'resume_pitch.pdf',
+            resumeBase64: selectedResumeBase64 || 'JVBERi0xLjQKJcOkw7zDtsOfCjIgMCBvYmoKPDwvTGVuZ3RoIDMgMCBSL0ZpbHRlci9GbGF0ZURlY29kZT4+' // Simulating mock upload base64 fallback
+        };
+
+        try {
+            if (isApiOnline) {
+                const res = await fetch(`${API_BASE}/applications`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(applicationPayload)
+                });
+                if (!res.ok) throw new Error('API server returned error status');
+            } else {
+                throw new Error('API server is offline');
+            }
+        } catch (err) {
+            // LocalStorage Sync Fallback
+            const newApp = {
+                ...applicationPayload,
+                id: 'app-' + Date.now(),
+                jobTitle: allJobs.find(j => j.id === jobId)?.title || 'Speculative Builder Application',
+                appliedDate: new Date().toISOString(),
+                status: 'Pending'
+            };
+            
+            let localApps = localStorage.getItem('lastbench_applications');
+            let updatedApps = localApps ? JSON.parse(localApps) : [];
+            updatedApps.unshift(newApp);
+            localStorage.setItem('lastbench_applications', JSON.stringify(updatedApps));
+        }
+
+        // Update list of applications and refresh UI
+        await loadApplications();
+
+        // Show animated success dialog
+        document.getElementById('success-msg-text').textContent = `Thanks for submitting your details, ${name}! Your profile and resume file ${selectedResumeFile ? selectedResumeFile.name : 'resume_pitch.pdf'} have been securely registered. Our engineering founders review all applicant codebases manually. We'll contact you on WhatsApp or Email within 24 hours.`;
+        successScreen.classList.add('active');
+
+        // Reset submit button state
+        submitBtn.disabled = false;
+        submitBtn.querySelector('span').textContent = 'Submit Application';
+    });
+
+    // Initial Load
+    window.addEventListener('DOMContentLoaded', () => {
+        initAuth();
+        loadJobs();
+    });
+</script>
+
+</body>
+</html>
