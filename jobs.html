@@ -1338,14 +1338,40 @@
         }
         
         selectedResumeFile = file;
-        dropzoneText.textContent = `✅ ${file.name}`;
-        dropzoneSub.textContent = `${(file.size / 1024).toFixed(1)} KB · Click to change file`;
-        uploadZone.style.background = 'rgba(212, 163, 115, 0.15)';
+        dropzoneText.textContent = `⏳ Reading ${file.name}...`;
+        dropzoneSub.textContent = "Please wait for processing to finish...";
+        uploadZone.style.background = 'rgba(212, 163, 115, 0.08)';
+        
+        const submitBtn = document.getElementById('submit-btn');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.6';
+            submitBtn.style.cursor = 'not-allowed';
+            submitBtn.querySelector('span').textContent = 'Processing resume file...';
+        }
         
         // Capture actual file base64
         const reader = new FileReader();
         reader.onload = function(e) {
             selectedResumeBase64 = e.target.result;
+            dropzoneText.textContent = `✅ ${file.name}`;
+            dropzoneSub.textContent = `${(file.size / 1024).toFixed(1)} KB · Click to change file`;
+            uploadZone.style.background = 'rgba(212, 163, 115, 0.15)';
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
+                submitBtn.querySelector('span').textContent = 'Submit Application';
+            }
+        };
+        reader.onerror = function() {
+            alert('Error reading file. Please select it again.');
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                submitBtn.style.cursor = 'pointer';
+                submitBtn.querySelector('span').textContent = 'Submit Application';
+            }
         };
         reader.readAsDataURL(file);
     }
