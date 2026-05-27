@@ -60,16 +60,18 @@ p { font-family: 'Poppins', sans-serif; font-weight: 400; }
   height: 80px;
 }
 .logo {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: 8px;
   text-decoration: none; color: var(--primary-color);
-  font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 700;
+  font-family: 'Poppins', sans-serif; font-size: 1.2rem; font-weight: 700;
+  white-space: nowrap;
 }
-.logo-img { height: 44px; width: auto; object-fit: contain; border-radius: 8px; }
-nav { display: flex; gap: 36px; }
+.logo-img { height: 36px; width: auto; object-fit: contain; border-radius: 8px; }
+nav { display: flex; gap: 22px; align-items: center; }
 nav a {
   color: var(--text-main); text-decoration: none;
-  font-size: 0.92rem; font-weight: 500;
+  font-size: 0.83rem; font-weight: 500;
   transition: var(--transition); position: relative;
+  white-space: nowrap;
 }
 nav a::after {
   content: ''; position: absolute; bottom: -5px; left: 0;
@@ -81,10 +83,11 @@ nav a:hover { color: var(--primary-color); }
 
 .btn-cta {
   background: var(--accent-color); color: var(--white);
-  padding: 11px 24px; border-radius: 50px;
-  text-decoration: none; font-size: 0.88rem; font-weight: 600;
+  padding: 10px 18px; border-radius: 50px;
+  text-decoration: none; font-size: 0.82rem; font-weight: 600;
   transition: var(--transition); white-space: nowrap;
   font-family: 'Poppins', sans-serif;
+  flex-shrink: 0;
 }
 .btn-cta:hover { background: var(--primary-color); transform: translateY(-2px); box-shadow: var(--shadow); }
 
@@ -226,6 +229,50 @@ nav a:hover { color: var(--primary-color); }
 .trust-pill:hover svg {
   transform: scale(1.15) rotate(5deg);
   color: var(--accent-color);
+}
+
+/* ─── HERO KEYWORDS STRIP ─── */
+.hero-keywords {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 30px;
+  animation: fadeInUp 0.7s ease 0.45s both;
+}
+.kw-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, rgba(212,163,115,0.18), rgba(62,39,35,0.08));
+  border: 1.5px solid rgba(212,163,115,0.45);
+  color: var(--primary-color);
+  padding: 6px 14px; border-radius: 50px;
+  font-size: 0.78rem; font-weight: 700;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(212,163,115,0.12);
+  white-space: nowrap;
+}
+.kw-tag:hover {
+  background: linear-gradient(135deg, rgba(212,163,115,0.3), rgba(62,39,35,0.12));
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212,163,115,0.25);
+}
+
+/* ─── ABOUT KEYWORDS STRIP ─── */
+.about-kw-strip {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin: 20px 0 24px;
+}
+.about-kw-strip span {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: linear-gradient(135deg, rgba(212,163,115,0.15), rgba(62,39,35,0.06));
+  border: 1.5px solid rgba(212,163,115,0.4);
+  color: var(--primary-color);
+  padding: 6px 14px; border-radius: 50px;
+  font-size: 0.78rem; font-weight: 700;
+  transition: all 0.3s ease;
+}
+.about-kw-strip span:hover {
+  border-color: var(--accent-color);
+  background: rgba(212,163,115,0.22);
+  transform: translateY(-2px);
 }
 
 /* ─── CODE CARD ─── */
